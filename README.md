@@ -23,7 +23,7 @@ Funktioner 2018-07-14
 * Öppna dörrar
 * Öppna backlucka
 * Öppna MotorHuv
-* Veva ner fönstrar (Funkar bara "LOKALT")
+* Veva ner fönster (Funkar bara "LOKALT")
 * Farthållare
 * Byt säte
 * Idkort
