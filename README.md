@@ -13,20 +13,20 @@ https://github.com/jonassvensson4/jsfour-register
 Funktioner 2018-07-14
 - 
 
-Individåtgärder
-Fordons meny
-Stänga av motor! (Fordonet MÅSTE stå stilla!)
-Öppna dörrar
-Öppna backlucka
-Veva ner fönstrar (Funkar bara "LOKALT")
-Farthållare
-Byt säte
-Idkort
-Kolla ID-Kort
-Visa ID-kort
-Kissa
-Bajsa
-Sätt av/på ögonbindel
+* Individåtgärder
+* Fordons meny
+* Stänga av motor! (Fordonet MÅSTE stå stilla!)
+* Öppna dörrar
+* Öppna backlucka
+* Veva ner fönstrar (Funkar bara "LOKALT")
+* Farthållare
+* Byt säte
+* Idkort
+* Kolla ID-Kort
+* Visa ID-kort
+* Kissa
+* Bajsa
+* Sätt av/på ögonbindel
 
 Det är också inlaggd en funktion att man kan klicka på B för att ta på sig bälte!
 
