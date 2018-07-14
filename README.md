@@ -14,15 +14,15 @@ Funktioner 2018-07-14
 - 
 Individåtgärder
 Fordons meny
--Stänga av motor! (Fordonet MÅSTE stå stilla!)
-- Öppna dörrar
-- Öppna backlucka
-- Veva ner fönstrar (Funkar bara "LOKALT")
-- Farthållare
-- Byt säte
+Stänga av motor! (Fordonet MÅSTE stå stilla!)
+Öppna dörrar
+Öppna backlucka
+Veva ner fönstrar (Funkar bara "LOKALT")
+Farthållare
+Byt säte
 Idkort
-- Kolla ID-Kort
-- Visa ID-kort
+Kolla ID-Kort
+Visa ID-kort
 Kissa
 Bajsa
 Sätt av/på ögonbindel
