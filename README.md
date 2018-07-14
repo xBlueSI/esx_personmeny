@@ -40,7 +40,7 @@ Det är också inlagd en funktion att man kan klicka på B för att ta på sig b
 - Tillgång till boss meny
 - Ta på/av bälte via menyn
 
-Tank You
+Thank You
 -
 
 Tack för att du laddar ner detta skriptet. Hoppas det upskattas. Fler uppdateringar kommer i framtiden!
