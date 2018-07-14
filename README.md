@@ -10,6 +10,10 @@ https://github.com/jonassvensson4/jsfour-legitimation
 Skulle rekomendera att använda jsfour-register för att legitmation ska funka. Är dock inte helt säker på det!
 https://github.com/jonassvensson4/jsfour-register
 
+EXTRA
+
+I skriptet så finns det en del som är tagen ur https://forum.fivem.net/t/release-disable-seat-shuffling/53526
+
 Funktioner 2018-07-14
 - 
 
@@ -34,3 +38,8 @@ Det är också inlaggd en funktion att man kan klicka på B för att ta på sig 
 -
 - Tillgång till boss meny
 - Ta på/av bälte via menyn
+
+Tank You
+-
+
+Tack för att du laddar ner detta skriptet. Hoppas det upskattas. Fler uppdateringar kommer i framtiden!
