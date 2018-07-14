@@ -33,7 +33,7 @@ Funktioner 2018-07-14
 * Bajsa
 * Sätt av/på ögonbindel
 
-Det är också inlaggd en funktion att man kan klicka på B för att ta på sig bälte!
+Det är också inlagd en funktion att man kan klicka på B för att ta på sig bälte!
 
 Önskas komma
 -
