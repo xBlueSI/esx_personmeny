@@ -1,2 +1,35 @@
 # esx_personmeny
-Detta är en personmeny som jag gjort rätt så simpel!
+Ger spelarna på servern en möjlighet till att använda en person meny med många fuktioner. Tänk på att detta är en personmeny som jag gjort rätt så snabt och simpelt och att det är i en tidig version.
+
+Du behöver dessa skriptsen för att det ska fungera!
+- 
+https://github.com/jonassvensson4/jsfour-blindfold
+https://github.com/jonassvensson4/jsfour-toilet
+https://github.com/jonassvensson4/jsfour-legitimation
+
+Skulle rekomendera att använda jsfour-register för att legitmation ska funka. Är dock inte helt säker på det!
+https://github.com/jonassvensson4/jsfour-register
+
+Funktioner 2018-07-14
+- 
+Individåtgärder
+*Fordons meny
+- Stänga av motor! (Fordonet MÅSTE stå stilla!)
+- Öppna dörrar
+- Öppna backlucka
+- Veva ner fönstrar (Funkar bara "LOKALT")
+- Farthållare
+- Byt säte
+*Idkort
+- Kolla ID-Kort
+- Visa ID-kort
+*Kissa
+*Bajsa
+*Sätt av/på ögonbindel
+
+Det är också inlaggd en funktion att man kan klicka på B för att ta på sig bälte!
+
+Önskas komma
+-
+- Tillgång till boss meny
+- Ta på/av bälte via menyn
