@@ -12,6 +12,7 @@ https://github.com/jonassvensson4/jsfour-register
 
 Funktioner 2018-07-14
 - 
+
 Individåtgärder
 Fordons meny
 Stänga av motor! (Fordonet MÅSTE stå stilla!)
