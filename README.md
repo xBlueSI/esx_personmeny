@@ -7,7 +7,7 @@ https://github.com/jonassvensson4/jsfour-blindfold
 https://github.com/jonassvensson4/jsfour-toilet
 https://github.com/jonassvensson4/jsfour-legitimation
 
-Skulle rekomendera att använda jsfour-register för att legitmation ska funka. Är dock inte helt säker på det!
+Skulle rekommendera att använda jsfour-register för att legitmation ska funka. Är dock inte helt säker på det!
 https://github.com/jonassvensson4/jsfour-register
 
 EXTRA
