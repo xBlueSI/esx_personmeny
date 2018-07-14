@@ -14,7 +14,7 @@ Funktioner 2018-07-14
 - 
 Individåtgärder
 Fordons meny
-- Stänga av motor! (Fordonet MÅSTE stå stilla!)
+-Stänga av motor! (Fordonet MÅSTE stå stilla!)
 - Öppna dörrar
 - Öppna backlucka
 - Veva ner fönstrar (Funkar bara "LOKALT")
