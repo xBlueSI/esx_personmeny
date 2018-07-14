@@ -81,30 +81,7 @@ function OpenIdMenu()
   )
 end
 
-function BossMenu()
-
-  ESX.UI.Menu.CloseAll()
-
-  ESX.UI.Menu.Open(
-  'default', GetCurrentResourceName(), 'id_kort',
-  {
-    title    = 'top-left',
-    align    = 'right',
-    elements = {
-      {label = 'Ur funktion!'},
-    }
-  },
-    
-    function(data, menu)
-
-    end,
-    function(data, menu)
-      menu.close()
-    end
-  )
-end
-
-function OpenPoliceActionsMenu()
+function OpenCivilianActionsMenu()
 
   ESX.UI.Menu.CloseAll()
 
@@ -119,15 +96,10 @@ function OpenPoliceActionsMenu()
       {label = 'Kissa', value = 'pee'},
       {label = 'Bajsa', value = 'poop'},
       {label = 'Av/På ögonbindel', value = 'blindfold'},
-      {label = 'Boss meny (Ur funktion)', value = 'bossmenu'},
     }
   },
     
     function(data, menu)
-
-      if data.current.value == 'bossmenu' then
-        BossMenu()
-      end
 
       if data.current.value == 'blindfold' then
         local player, distance = ESX.Game.GetClosestPlayer()
@@ -192,7 +164,7 @@ Citizen.CreateThread(function()
   while true do
     Wait(0)
     if IsControlPressed(0, Keys["F5"]) then
-      OpenPoliceActionsMenu()
+      OpenCivilianActionsMenu()
     end
   end
 end)
