@@ -22,6 +22,7 @@ Funktioner 2018-07-14
 * Stänga av motor! (Fordonet MÅSTE stå stilla!)
 * Öppna dörrar
 * Öppna backlucka
+* Öppna MotorHuv
 * Veva ner fönstrar (Funkar bara "LOKALT")
 * Farthållare
 * Byt säte
