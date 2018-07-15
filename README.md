@@ -4,9 +4,9 @@ Ger spelarna på servern en möjlighet till att använda en person meny med mån
 Du behöver dessa skriptsen för att det ska fungera!
 - 
 - https://github.com/jonassvensson4/jsfour-blindfold
-https://github.com/jonassvensson4/jsfour-toilet
-https://github.com/jonassvensson4/jsfour-legitimation
-https://github.com/Nick78111/pNotify
+- https://github.com/jonassvensson4/jsfour-toilet
+- https://github.com/jonassvensson4/jsfour-legitimation
+- https://github.com/Nick78111/pNotify
 
 Skulle rekommendera att använda jsfour-register för att legitmation ska funka. Är dock inte helt säker på det!
 https://github.com/jonassvensson4/jsfour-register
