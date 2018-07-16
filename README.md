@@ -25,7 +25,7 @@ Ger ID: Drar fram handen
 Ingen I närheten: FacePalm
 - Laggt till så att man måste sitta i ett fordon för att Fordonsmenyn ska funka från F5
 - Jag har städat upp en hel del så att det inte är kaos.
-Jag har laggt till så att ID-Kort menyn ligger inte som en separat meny
+- Jag har laggt till så att ID-Kort menyn ligger inte som en separat meny
 
 
 Funktioner
