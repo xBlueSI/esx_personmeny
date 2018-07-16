@@ -15,7 +15,20 @@ EXTRA
 
 I skriptet så finns det en del som är tagen ur https://forum.fivem.net/t/release-disable-seat-shuffling/53526
 
-Funktioner 2018-07-14
+UPDATE 2018-07-17
+-
+
+- Nu kan man klicka BACKSPACE för att komma back i meny
+- Jag har försökt att fixa problemet med att avaktivera cruise control.
+- Den spelar en animation och notis när du ger ditt ID och när du ger ID-Kort och ingen är i närheten
+Ger ID: Drar fram handen
+Ingen I närheten: FacePalm
+- Laggt till så att man måste sitta i ett fordon för att Fordonsmenyn ska funka från F5
+- Jag har städat upp en hel del så att det inte är kaos.
+Jag har laggt till så att ID-Kort menyn ligger inte som en separat meny
+
+
+Funktioner
 - 
 
 * Individåtgärder
