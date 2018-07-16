@@ -491,15 +491,6 @@ Citizen.CreateThread(function()
   end
 end)
 
-Citizen.CreateThread(function()
-  while true do
-  	Wait(0)
-  	if IsControlPressed(0, Keys["PAGEDOWN"]) then
-  	  OpenTestMeny()
-  	end
-  end
-end)
-
 -- Bälte
 
 
