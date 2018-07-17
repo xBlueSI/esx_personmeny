@@ -45,38 +45,6 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
   PlayerData = xPlayer   
 end)
 
--- Giving ID Animation
-function OpenGivingID()
-  local pP = GetPlayerPed(-1)
-
-  Citizen.CreateThread(function()
-
-    local pP = GetPlayerPed(-1)
-    TaskPlayAnim(pP, "mp_common", "givetake1_a", 3.5, -8, -1, 2, 0, 0, 0, 0, 0)
-    Citizen.CreateThread(function()
-      Citizen.Wait(10000)
-      TriggerServerEvent('esx_personmeny:give_id')
-      ClearPedTasksImmediately(pP)
-      end)
-    end)
-end
-
--- No one Near Animation
-function OpenNoOneNear()
-  local pP = GetPlayerPed(-1)
-
-  Citizen.CreateThread(function()
-
-    local pP = GetPlayerPed(-1)
-    TaskPlayAnim(pP, "anim@mp_player_intcelebrationmale@face_palm", "face_palm", 3.5, -8, -1, 2, 0, 0, 0, 0, 0)
-    Citizen.CreateThread(function()
-      Citizen.Wait(10000)
-      TriggerServerEvent('esx_personmeny:give_id')
-      ClearPedTasksImmediately(pP)
-      end)
-    end)
-end
-
 function OpenCivilianActionsMenu()
 
   ESX.UI.Menu.CloseAll()
@@ -114,17 +82,16 @@ function OpenCivilianActionsMenu()
 
             if data.current.value == 'check' then
               TriggerServerEvent('jsfour-legitimation:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(PlayerId()))
-              TriggerEvent("pNotify:SendNotification", {text = "Du kollar på ditt eget ID-Kort", type = "info", queue = "belt", timeout = 3500, layout = "bottomLeft"})
+              TriggerEvent("pNotify:SendNotification", {text = "Du kollar på ditt eget ID-Kort", type = "info", queue = "personmeny", timeout = 3500, layout = "bottomLeft"})
+  				local pP = GetPlayerPed(-1)
             elseif data.current.value == 'show' then
               local player, distance = ESX.Game.GetClosestPlayer()
 
               if distance ~= -1 and distance <= 3.0 then
                 TriggerServerEvent('jsfour-legitimation:open', GetPlayerPed(PlayerId()), GetPlayerServerId(player))
-                OpenGivingID()
-                TriggerEvent("pNotify:SendNotification", {text = "Du visar ditt ID kort till" .. GetPlayerServerId(PlayerId()), type = "error", queue = "belt", timeout = 3500, layout = "bottomLeft"}) -- Testa player, distance
+                TriggerEvent("pNotify:SendNotification", {text = "Du visar ditt ID kort till närmsta person", type = "error", queue = "personmeny", timeout = 3500, layout = "bottomLeft"}) -- Testa player, distance
               else
-                TriggerEvent("pNotify:SendNotification", {text = "Där är ingen som kan ta emot mitt ID-Kort... 🤦", type = "error", queue = "belt", timeout = 5000, layout = "bottomLeft"})
-                OpenNoOneNear()
+                TriggerEvent("pNotify:SendNotification", {text = "Där är ingen som kan ta emot mitt ID-Kort... 🤦", type = "error", queue = "personmeny", timeout = 5000, layout = "bottomLeft"})
               end
             end
           end,
