@@ -80,20 +80,17 @@ function OpenCivilianActionsMenu()
           },
           function(data, menu)
 
-            if data.current.value == 'check' then
-              TriggerServerEvent('jsfour-legitimation:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(PlayerId()))
-              TriggerEvent("pNotify:SendNotification", {text = "Du kollar på ditt eget ID-Kort", type = "info", queue = "personmeny", timeout = 3500, layout = "bottomLeft"})
-  				local pP = GetPlayerPed(-1)
-            elseif data.current.value == 'show' then
-              local player, distance = ESX.Game.GetClosestPlayer()
+              if data2.current.value == 'check' then
+                  TriggerServerEvent('jsfour-legitimation:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(PlayerId()))
+              elseif data2.current.value == 'show' then
+                  local player, distance = ESX.Game.GetClosestPlayer()
 
-              if distance ~= -1 and distance <= 3.0 then
-                TriggerServerEvent('jsfour-legitimation:open', GetPlayerPed(PlayerId()), GetPlayerServerId(player))
-                TriggerEvent("pNotify:SendNotification", {text = "Du visar ditt ID kort till närmsta person", type = "error", queue = "personmeny", timeout = 3500, layout = "bottomLeft"}) -- Testa player, distance
-              else
-                TriggerEvent("pNotify:SendNotification", {text = "Där är ingen som kan ta emot mitt ID-Kort... 🤦", type = "error", queue = "personmeny", timeout = 5000, layout = "bottomLeft"})
+                  if distance ~= -1 and distance <= 3.0 then
+                      TriggerServerEvent('jsfour-legitimation:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(player))
+		  else
+                    ESX.ShowNotification('Ingen i närheten')
+                  end
               end
-            end
           end,
         function(data, menu)
           menu.close()
