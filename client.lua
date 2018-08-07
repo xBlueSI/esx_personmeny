@@ -45,6 +45,104 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
   PlayerData = xPlayer   
 end)
 
+-- Giving ID Animation
+function OpenGivingID()
+  local pP = GetPlayerPed(-1)
+
+  Citizen.CreateThread(function()
+
+    local pP = GetPlayerPed(-1)
+    TaskPlayAnim(pP, "mp_common", "givetake1_a", 3.5, -8, -1, 2, 0, 0, 0, 0, 0)
+    Citizen.CreateThread(function()
+      Citizen.Wait(10000)
+      TriggerServerEvent('esx_personmeny:give_id')
+      ClearPedTasksImmediately(pP)
+      end)
+    end)
+end
+
+-- No one Near Animation
+function OpenNoOneNear()
+  local pP = GetPlayerPed(-1)
+
+  Citizen.CreateThread(function()
+
+    local pP = GetPlayerPed(-1)
+    TaskPlayAnim(pP, "anim@mp_player_intcelebrationmale@face_palm", "face_palm", 3.5, -8, -1, 2, 0, 0, 0, 0, 0)
+    Citizen.CreateThread(function()
+      Citizen.Wait(10000)
+      TriggerServerEvent('esx_personmeny:idnoonenear')
+      ClearPedTasksImmediately(pP)
+      end)
+    end)
+end
+
+function OpenTrashCan()
+  local pP = GetPlayerPed(-1)
+
+  Citizen.CreateThread(function()
+
+    local pP = GetPlayerPed(-1)
+    TaskPlayAnim(pP, "mp_common", "givetake2_a", 3.5, -8, -1, 2, 0, 0, 0, 0, 0)
+    TaskStartScenarioInPlace(pP, "mp_common", 0, true)
+    Citizen.CreateThread(function()
+      Citizen.Wait(2000)
+      ClearPedTasksImmediately(pP)
+      end)
+    end)
+end
+
+function OpenAttansCan()
+  local pP = GetPlayerPed(-1)
+
+  Citizen.CreateThread(function()
+
+    local pP = GetPlayerPed(-1)
+    TaskPlayAnim(pP, "gestures@m@standing@casual", "gesture_damn", 3.5, -8, -1, 2, 0, 0, 0, 0, 0)
+    TaskStartScenarioInPlace(pP, "gestures@m@standing@casual", 0, true)
+    FreezeEntityPosition(playerPed, true)
+    Citizen.CreateThread(function()
+      Citizen.Wait(2000)
+      FreezeEntityPosition(playerPed, false)
+      ClearPedTasksImmediately(pP)
+      end)
+    end)
+end
+
+function OpenShowGiveID()
+
+ESX.UI.Menu.Open(
+	'default', GetCurrentResourceName(), 'id_card_menu',
+	{
+		title    = _U('id_menu'),
+		elements = {
+			{label = _U('check_id'), value = 'check'},
+			{label = _U('show_id'), value = 'show'}
+		}
+	},
+	function(data2, menu2)
+		if data2.current.value == 'check' then
+			TriggerServerEvent('jsfour-legitimation:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(PlayerId()))
+		elseif data2.current.value == 'show' then
+			local player, distance = ESX.Game.GetClosestPlayer()
+
+			if distance ~= -1 and distance <= 3.0 then
+				TriggerServerEvent('jsfour-legitimation:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(player))
+				OpenTrashCan()
+			else
+				OpenAttansCan()
+				ESX.ShowNotification(_U('nobody_near'))
+			end
+		end
+	end,
+	function(data2, menu2)
+		menu2.close()
+		OpenCivilianActionsMenu()
+	end
+)
+
+end
+
 function OpenCivilianActionsMenu()
 
   ESX.UI.Menu.CloseAll()
@@ -52,51 +150,21 @@ function OpenCivilianActionsMenu()
   ESX.UI.Menu.Open(
   'default', GetCurrentResourceName(), 'civilian_actions',
   {
-    title    = 'Individåtgärder',
+    title    = _U('citizen_interactions'),
     align    = 'top-left',
     elements = {
-      {label = 'Fordons Meny', value = 'vehiclemenu'},
-      {label = 'ID-Kort', value = 'id_kort'},
-      {label = 'Kissa', value = 'pee'},
-      {label = 'Bajsa', value = 'poop'},
-      {label = 'Av/På ögonbindel', value = 'blindfold'},
+      {label = _U('vehicle_menu'), value = 'vehiclemenu'},
+      {label = _U('id_card'), value = 'id_kort'},
+      {label = _U('pee'), value = 'pee'},
+      {label = _U('poop'), value = 'poop'},
+      {label = _U('blindfold'), value = 'blindfold'},
     }
   },
     
     function(data, menu)
 
       if data.current.value == 'id_kort' then
-        ESX.UI.Menu.CloseAll()
-
-        ESX.UI.Menu.Open(
-          'default', GetCurrentResourceName(), 'id_card',
-          {
-            title    = 'Legitimation',
-            align    = 'top-left',
-            elements = {
-              {label = 'Kolla på ditt ID-Kort', value = 'check'},
-              {label = 'Visa ditt ID-Kort', value = 'show'}
-            }
-          },
-          function(data, menu)
-
-              if data2.current.value == 'check' then
-                  TriggerServerEvent('jsfour-legitimation:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(PlayerId()))
-              elseif data2.current.value == 'show' then
-                  local player, distance = ESX.Game.GetClosestPlayer()
-
-                  if distance ~= -1 and distance <= 3.0 then
-                      TriggerServerEvent('jsfour-legitimation:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(player))
-		  else
-                    ESX.ShowNotification('Ingen i närheten')
-                  end
-              end
-          end,
-        function(data, menu)
-          menu.close()
-          OpenCivilianActionsMenu()
-        end
-        )
+      	OpenShowGiveID()
       end
 
       if data.current.value == 'blindfold' then
@@ -107,7 +175,7 @@ function OpenCivilianActionsMenu()
               TriggerServerEvent('jsfour-blindfold', GetPlayerServerId(player), hasItem)
            end)
       else
-           ESX.ShowAdvancedNotification('Individåtgärder', '~b~Ögonbindel', 'Inga människor i närheten', 'CHAR_DEFAULT', 8)
+           ESX.ShowAdvancedNotification('Individåtgärder', '~b~Ögonbindel', _U('nobody_near'), 'CHAR_DEFAULT', 8)
           end
       end
 
@@ -136,8 +204,7 @@ function OpenCivilianActionsMenu()
       if distance ~= -1 and distance <= 3.0 then
         TriggerServerEvent('jsfour-legitimation:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(player))
       else
-        ESX.ShowAdvancedNotification('Individåtgärder', '', 'Inga människor i närheten', 'CHAR_DEFAULT', 8)
-        --ESX.ShowNotification('Ingen i närheten')
+        ESX.ShowAdvancedNotification('Individåtgärder', '', _U('nobody_near'), 'CHAR_DEFAULT', 8)
       end
     end
     end,
@@ -154,14 +221,14 @@ function OpenVehicleMenu()
   ESX.UI.Menu.Open(
     'default', GetCurrentResourceName(), 'vehicle_actions',
     {
-      title    = 'Fordons Meny',
+      title    = _U('vehicle_menu'),
       align    = 'top-left',
       elements = {
-        {label = 'Motor',           value = 'engine'},
-        {label = 'Dörrar',        value = 'door'},
-        {label = 'Fönster',         value = 'window'},
-        {label = 'Farthållare',   value = 'cruise_control'},
-        {label = 'Byt säte',      value = 'changeseat'},
+        {label = _U('engine'),           value = 'engine'},
+        {label = _U('doors'),        value = 'door'},
+        {label = _U('window'),         value = 'window'},
+        {label = _U('cruise_control'),   value = 'cruise_control'},
+        {label = _U('shuff'),      value = 'changeseat'},
       }
     },
     function(data, menu)
@@ -172,12 +239,12 @@ function OpenVehicleMenu()
                 SetVehicleUndriveable(playerVeh, true)
             SetVehicleEngineOn(playerVeh, false, false, false)
             engineOn = false
-            TriggerEvent("pNotify:SendNotification", {text = "Du stängde av motorn", type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+            TriggerEvent("pNotify:SendNotification", {text = _U('turned_off_engine'), type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
         else
           SetVehicleUndriveable(playerVeh, false)
             SetVehicleEngineOn(playerVeh, true, false, false)       
                 engineOn = true
-            TriggerEvent("pNotify:SendNotification", {text = "Du satte på motorn", type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+            TriggerEvent("pNotify:SendNotification", {text = _U('turned_on_engine'), type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
         end
       end
 
@@ -191,15 +258,15 @@ function OpenVehicleMenu()
         ESX.UI.Menu.Open(
           'default', GetCurrentResourceName(), 'door_actions',
           {
-            title    = 'Dörrar',
+            title    = _U('doors'),
             align    = 'top-left',
             elements = {
-              {label = 'Motorhuv',        value = 'hood'},
-              {label = 'Backlucka',           value = 'trunk'},
-              {label = 'Vänster främre dörr',   value = 'dooravg'},
-              {label = 'Främre höger dörr',     value = 'dooravd'},
-              {label = 'Backre vänster',      value = 'doorarg'},
-              {label = 'Backre höger',      value = 'doorard'}
+              {label = _U('hood'),        value = 'hood'},
+              {label = _U('trunk'),           value = 'trunk'},
+              {label = _U('front_left_door'),   value = 'dooravg'},
+              {label = _U('front_right_door'),     value = 'dooravd'},
+              {label = _U('back_left_door'),      value = 'doorarg'},
+              {label = _U('back_right_door'),      value = 'doorard'}
             }
           },
           function(data, menu)
@@ -223,11 +290,11 @@ function OpenVehicleMenu()
                 if ( IsPedSittingInAnyVehicle( playerPed ) ) then
                    if GetVehicleDoorAngleRatio(playerVeh, 5) > 0.0 then 
                       SetVehicleDoorShut(playerVeh, 5, false)
-                      TriggerEvent("pNotify:SendNotification", {text = "Du stängde backluckan!", type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+                      TriggerEvent("pNotify:SendNotification", {text = _U('closed_hood'), type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
                     else
                       SetVehicleDoorOpen(playerVeh, 5, false)
                       frontleft = true
-                      TriggerEvent("pNotify:SendNotification", {text = "Du öppnade backluckan!", type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})    
+                      TriggerEvent("pNotify:SendNotification", {text = _U('opened_hood'), type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})    
                    end
                 end
             end
@@ -237,11 +304,11 @@ function OpenVehicleMenu()
                 if ( IsPedSittingInAnyVehicle( playerPed ) ) then
                    if GetVehicleDoorAngleRatio(playerVeh, 0) > 0.0 then 
                       SetVehicleDoorShut(playerVeh, 0, false)
-                      TriggerEvent("pNotify:SendNotification", {text = "Du stängde dörren!", type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+                      TriggerEvent("pNotify:SendNotification", {text = _U('closed_door'), type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
                     else
                       SetVehicleDoorOpen(playerVeh, 0, false)
                       frontleft = true
-                      TriggerEvent("pNotify:SendNotification", {text = "Du öppnade dörren!", type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+                      TriggerEvent("pNotify:SendNotification", {text = _U('opened_door'), type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
                    end
                 end
             end
@@ -251,11 +318,11 @@ function OpenVehicleMenu()
                 if ( IsPedSittingInAnyVehicle( playerPed ) ) then
                    if GetVehicleDoorAngleRatio(playerVeh, 1) > 0.0 then 
                       SetVehicleDoorShut(playerVeh, 1, false)
-                      TriggerEvent("pNotify:SendNotification", {text = "Du stängde dörren!", type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+                      TriggerEvent("pNotify:SendNotification", {text = _U('closed_door'), type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
                     else
                       SetVehicleDoorOpen(playerVeh, 1, false)
                       frontleft = true
-                      TriggerEvent("pNotify:SendNotification", {text = "Du öppnade dörren!", type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})  
+                      TriggerEvent("pNotify:SendNotification", {text = _U('opened_door'), type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})  
                    end
                 end
             end
@@ -265,11 +332,11 @@ function OpenVehicleMenu()
                 if ( IsPedSittingInAnyVehicle( playerPed ) ) then
                    if GetVehicleDoorAngleRatio(playerVeh, 2) > 0.0 then 
                       SetVehicleDoorShut(playerVeh, 2, false)
-                      TriggerEvent("pNotify:SendNotification", {text = "Du stängde dörren!", type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+                      TriggerEvent("pNotify:SendNotification", {text = _U('closed_door'), type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
                     else
                       SetVehicleDoorOpen(playerVeh, 2, false)
                       frontleft = true
-                      TriggerEvent("pNotify:SendNotification", {text = "Du öppnade dörren!", type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})     
+                      TriggerEvent("pNotify:SendNotification", {text = _U('opened_door'), type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})     
                    end
                 end
             end
@@ -279,11 +346,11 @@ function OpenVehicleMenu()
                 if ( IsPedSittingInAnyVehicle( playerPed ) ) then
                    if GetVehicleDoorAngleRatio(playerVeh, 3) > 0.0 then 
                       SetVehicleDoorShut(playerVeh, 3, false)
-                      TriggerEvent("pNotify:SendNotification", {text = "Du stängde dörren!", type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+                      TriggerEvent("pNotify:SendNotification", {text = _U('closed_door'), type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
                     else
                       SetVehicleDoorOpen(playerVeh, 3, false)
                       frontleft = true
-                      TriggerEvent("pNotify:SendNotification", {text = "Du öppnade dörren!", type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+                      TriggerEvent("pNotify:SendNotification", {text = _U('opened_door'), type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
                    end
                 end
             end
@@ -300,13 +367,13 @@ function OpenVehicleMenu()
         ESX.UI.Menu.Open(
           'default', GetCurrentResourceName(), 'window_actions',
           {
-            title    = 'Fönster meny',
+            title    = _U('window_menu'),
             align    = 'top-left',
             elements = {
-              {label = 'Vänster främre fönster',  value = 'windowavga'},
-              {label = 'Höger främre fönster',  value = 'windowavdr'},
-              {label = 'Vänster backre dörr',   value = 'windowarga'},
-              {label = 'Höger backre dörr',   value = 'windowardr'}
+              {label = _U('front_left_window'),   value = 'windowavga'},
+              {label = _U('front_right_window'),   value = 'windowavdr'},
+              {label = _U('back_left_window'),   value = 'windowarga'},
+              {label = _U('back_right_window'),   value = 'windowardr'}
             }
           },
           function(data, menu)
@@ -316,11 +383,11 @@ function OpenVehicleMenu()
                 if windowavg == false then
                       RollDownWindow(playerVeh, 0)
                       windowavg = true
-                      TriggerEvent("pNotify:SendNotification", {text = "Du vevade ner fönstret", type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+                      TriggerEvent("pNotify:SendNotification", {text = _U('opened_window'), type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
                 else
                   RollUpWindow(playerVeh, 0)
                       windowavg = false
-                  TriggerEvent("pNotify:SendNotification", {text = "Du vevade upp fönstret", type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+                  TriggerEvent("pNotify:SendNotification", {text = _U('closed_wondow'), type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
                 end
             end
             if data.current.value == 'windowavdr' then
@@ -329,11 +396,11 @@ function OpenVehicleMenu()
                 if windowavd == false then
                       RollDownWindow(playerVeh, 1)
                       windowavd = true
-                  TriggerEvent("pNotify:SendNotification", {text = "Du vevade ner fönstret", type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+                  TriggerEvent("pNotify:SendNotification", {text = _U('opened_window'), type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
                 else
                   RollUpWindow(playerVeh, 1)
                       windowavd = false
-                  TriggerEvent("pNotify:SendNotification", {text = "Du vevade upp fönstret", type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+                  TriggerEvent("pNotify:SendNotification", {text = _U('closed_wondow'), type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
                 end
             end
             if data.current.value == 'windowarga' then
@@ -342,11 +409,11 @@ function OpenVehicleMenu()
                 if windowarg == false then
                       RollDownWindow(playerVeh, 2)
                       windowarg = true
-                  TriggerEvent("pNotify:SendNotification", {text = "Du vevade ner fönstret", type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+                  TriggerEvent("pNotify:SendNotification", {text = _U('opened_window'), type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
                 else
                   RollUpWindow(playerVeh, 2)
                       windowarg = false
-                  TriggerEvent("pNotify:SendNotification", {text = "Du vevade upp fönstret", type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+                  TriggerEvent("pNotify:SendNotification", {text = _U('closed_wondow'), type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
                 end
             end
             if data.current.value == 'windowardr' then
@@ -355,11 +422,11 @@ function OpenVehicleMenu()
                 if windoward == false then
                       RollDownWindow(playerVeh, 3)
                       windoward = true
-                  TriggerEvent("pNotify:SendNotification", {text = "Du vevade ner fönstret", type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+                  TriggerEvent("pNotify:SendNotification", {text = _U('opened_window'), type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
                 else
                   RollUpWindow(playerVeh, 3)
                       windoward = false
-                  TriggerEvent("pNotify:SendNotification", {text = "Du vevade upp fönstret", type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+                  TriggerEvent("pNotify:SendNotification", {text = _U('closed_wondow'), type = "success", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
                 end
             end
           end,
@@ -375,10 +442,10 @@ function OpenVehicleMenu()
         ESX.UI.Menu.Open(
           'default', GetCurrentResourceName(), 'cruise_control_actions',
           {
-            title    = 'Farthållare',
+            title    = _U('cruise_control'),
             align    = 'top-left',
             elements = {
-              {label = 'Avaktiverat',   value = 'none'},
+              {label = _U('disabled'),   value = 'none'},
               {label = '30Km/h',    value = '30'},
               {label = '55Km/h',    value = '55'},
               {label = '110Km/h',   value = '110'},
@@ -391,9 +458,9 @@ function OpenVehicleMenu()
                 local modelVeh  = GetEntityModel(playerVeh)
                 local maxSpeed  = GetVehicleMaxSpeed(modelVeh)
                 SetEntityMaxSpeed(playerVeh, maxSpeed)
-                TriggerEvent("pNotify:SendNotification", {text = "Du stängde av farthållaren", type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
+                TriggerEvent("pNotify:SendNotification", {text = _U('disabled_cruise_control'), type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
             end
-            if data.current.value == '30' then
+            if data.current.value == '30' thendisabled_cruise_control
               local speedkm   = 30
               local speed   = speedkm/3.6
               local playerPed = GetPlayerPed(-1)
@@ -514,8 +581,8 @@ Citizen.CreateThread(function()
         
       if IsControlJustReleased(0, 29) then
         beltOn = not beltOn         
-        if beltOn then  TriggerEvent("pNotify:SendNotification", {text = "Du tog på dig ditt säkerhetsbälte!", type = "success", queue = "belt", timeout = 1000, layout = "bottomLeft"})
-        else TriggerEvent("pNotify:SendNotification", {text = "Du tog av dig ditt säkerhetsbälte!", type = "error", queue = "belt", timeout = 1000, layout = "bottomLeft"}) end
+        if beltOn then  TriggerEvent("pNotify:SendNotification", {text = _U('seatbelt_on'), type = "success", queue = "belt", timeout = 1000, layout = "bottomLeft"})
+        else TriggerEvent("pNotify:SendNotification", {text = _U('seatbelt_off'), type = "error", queue = "belt", timeout = 1000, layout = "bottomLeft"}) end
       end
       
     elseif wasInCar then
