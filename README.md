@@ -14,6 +14,10 @@ https://github.com/jonassvensson4/jsfour-register
 EXTRA
 
 I skriptet så finns det en del som är tagen ur https://forum.fivem.net/t/release-disable-seat-shuffling/53526
+UPDATE 2018-08-08
+-
+
+- Nu stödjer skriptet översättning till Svenska och Engelska
 
 UPDATE 2018-07-17
 -
