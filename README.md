@@ -18,6 +18,9 @@ UPDATE 2018-08-08
 -
 
 - Nu stödjer skriptet översättning till Svenska och Engelska
+- Fixat så att man kan visa legitimation utan problem
+- Tillaggd animation när man visar legitimation och när man visar när ingen är i närheten. 
+
 
 UPDATE 2018-07-17
 -
