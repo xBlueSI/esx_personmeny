@@ -460,7 +460,7 @@ function OpenVehicleMenu()
                 SetEntityMaxSpeed(playerVeh, maxSpeed)
                 TriggerEvent("pNotify:SendNotification", {text = _U('disabled_cruise_control'), type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
             end
-            if data.current.value == '30' thendisabled_cruise_control
+            if data.current.value == '30' then
               local speedkm   = 30
               local speed   = speedkm/3.6
               local playerPed = GetPlayerPed(-1)
