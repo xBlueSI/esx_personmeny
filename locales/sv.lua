@@ -42,6 +42,6 @@ Locales['sv'] = {
 	["disabled"]				= "Avaktiverat",
 	["disabled_cruise_control"]	= "Du stängde av farthållaren",
 	-- Seatbelt
-	["seatbelt_on"]				= "Du tog på dig ditt säkerhetsbälte!"
+	["seatbelt_on"]				= "Du tog på dig ditt säkerhetsbälte!",
 	["seatbelt_off"]			= "Du tog av dig ditt säkerhetsbälte!"
 }
