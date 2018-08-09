@@ -42,6 +42,6 @@ Locales['en'] = {
 	["disabled"]				= "Disabled",
 	["disabled_cruise_control"]	= "You turned off the cruise control",
 	-- Seatbelt
-	["seatbelt_on"]				= "Fasten seatbelt!"
+	["seatbelt_on"]				= "Fasten seatbelt!",
 	["seatbelt_off"]			= "Unbuckled seatbelt!"
 }
