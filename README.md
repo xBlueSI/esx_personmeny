@@ -1,4 +1,7 @@
 # esx_personmeny
+
+NOT SUPPORTED ANYMORE
+
 Ger spelarna på servern en möjlighet till att använda en person meny med många fuktioner. Tänk på att detta är en personmeny som jag gjort rätt så snabt och simpelt och att det är i en tidig version.
 
 Du behöver dessa skriptsen för att det ska fungera!
