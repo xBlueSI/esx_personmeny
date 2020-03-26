@@ -455,8 +455,8 @@ function OpenVehicleMenu()
             if data.current.value == 'none' then
               local playerPed = GetPlayerPed(-1)
                 local playerVeh = GetVehiclePedIsIn(playerPed, false)
-                local modelVeh  = GetEntityModel(playerVeh)
-                local maxSpeed  = GetVehicleMaxSpeed(modelVeh)
+                local modelVeh  = GetEntityModel(playerVeh, false)
+		local maxSpeed = GetVehicleHandlingFloat(playerVeh,"CHandlingData","fInitialDriveMaxFlatVel")
                 SetEntityMaxSpeed(playerVeh, maxSpeed)
                 TriggerEvent("pNotify:SendNotification", {text = _U('disabled_cruise_control'), type = "error", queue = "vehiclemenu", timeout = 1000, layout = "bottomLeft"})
             end
